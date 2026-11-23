@@ -27,8 +27,8 @@ GeneratedInstance generateRandom3Sat(int nvars, double ratio, uint64_t seed) {
   if (nvars < 3) {
     throw std::invalid_argument("random 3-SAT needs at least 3 variables");
   }
-  if (!(ratio > 0.0)) {
-    throw std::invalid_argument("ratio must be positive");
+  if (!(ratio > 0.0) || !std::isfinite(ratio)) {
+    throw std::invalid_argument("ratio must be a positive finite number");
   }
 
   GeneratedInstance instance;
@@ -110,7 +110,7 @@ GeneratedInstance generateColoring(int vertices, int colors, double edge_prob,
   if (vertices <= 0 || colors <= 0) {
     throw std::invalid_argument("vertices and colors must be positive");
   }
-  if (edge_prob < 0.0 || edge_prob > 1.0) {
+  if (!(edge_prob >= 0.0 && edge_prob <= 1.0)) {
     throw std::invalid_argument("edge probability must be in [0, 1]");
   }
 

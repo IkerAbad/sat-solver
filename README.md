@@ -68,8 +68,9 @@ instance dominates.
 ### Where it wins
 
 - **`r3sat_n250_s1`.** 126,465 conflicts against 452,349, and 0.83x the wall
-  time. LBD-based reduction keeps short glue clauses and the first-UIP
-  minimization pays off on this UNSAT instance.
+  time. The lower conflict count is consistent with LBD-based reduction and
+  first-UIP minimization keeping a useful core of learned clauses on this
+  UNSAT instance.
 - **`php_7_6`.** 3,249 conflicts against 9,328, although the wall time is still
   1.14x because of the per-conflict overhead above.
 - **Small instances.** `php_3_2`, `php_5_4`, `color_c50_k3_p010_s1`,
