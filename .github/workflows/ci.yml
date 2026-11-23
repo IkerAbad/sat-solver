@@ -108,10 +108,7 @@ jobs:
         run: cmake --build build
 
       - name: Install drat-trim from source
-        run: |
-          git clone https://github.com/marijnheule/drat-trim.git "$RUNNER_TEMP/drat-trim"
-          git -C "$RUNNER_TEMP/drat-trim" checkout "$DRAT_TRIM_REV"
-          make -C "$RUNNER_TEMP/drat-trim" drat-trim
+        run: bash scripts/install_drat_trim.sh "$RUNNER_TEMP/drat-trim"
 
       - name: Generate benchmark instances
         run: |
