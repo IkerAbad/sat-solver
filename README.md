@@ -239,6 +239,9 @@ CSV, Markdown, JSON and figures.
 
 ## How it works
 
+- **DPLL core.** The outer loop is a DPLL search: decide, propagate, and stop
+  on a conflict or a complete assignment. CDCL replaces the chronological
+  backtracking of plain DPLL with conflict analysis and backjumping.
 - **Literals and clauses.** A literal is `2*var` (positive) or `2*var+1`
   (negative). Clauses own a `std::vector<Lit>` and are referenced by stable
   pointers.
