@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="528" viewBox="0 0 1000 528">
+<rect width="1000" height="528" fill="#ffffff"/>
+<text x="24.00" y="30.00" font-family="sans-serif" font-size="20.0" fill="#222222" font-weight="bold" text-anchor="start">Solve time against MiniSat</text>
+<text x="24.00" y="52.00" font-family="sans-serif" font-size="12.0" fill="#666666" font-weight="normal" text-anchor="start">Median end-to-end wall time per instance, logarithmic scale. Left is faster.</text>
+<circle cx="24.00" cy="71.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<text x="34.00" y="75.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">satsolver</text>
+<circle cx="111.00" cy="71.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="121.00" y="75.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">MiniSat</text>
+<line x1="233.41" y1="87.00" x2="233.41" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="233.41" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.01</text>
+<line x1="491.36" y1="87.00" x2="491.36" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="491.36" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.1</text>
+<line x1="749.30" y1="87.00" x2="749.30" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="749.30" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">1</text>
+<text x="560.00" y="512.00" font-family="sans-serif" font-size="12.0" fill="#666666" font-weight="normal" text-anchor="middle">wall time (s)</text>
+<text x="203.00" y="111.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n60_s1</text>
+<line x1="274.59" y1="107.00" x2="265.60" y2="107.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="274.59" cy="107.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="265.60" cy="107.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="111.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.08x</text>
+<text x="203.00" y="138.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n100_s1</text>
+<line x1="273.15" y1="134.00" x2="275.54" y2="134.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="273.15" cy="134.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="275.54" cy="134.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="138.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.98x</text>
+<text x="203.00" y="165.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n150_s1</text>
+<line x1="351.44" y1="161.00" x2="323.20" y2="161.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="351.44" cy="161.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="323.20" cy="161.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="165.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.29x</text>
+<text x="203.00" y="192.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n200_s1</text>
+<line x1="420.08" y1="188.00" x2="306.25" y2="188.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="420.08" cy="188.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="306.25" cy="188.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="192.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">2.76x</text>
+<text x="203.00" y="219.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n250_s1</text>
+<line x1="840.31" y1="215.00" x2="859.58" y2="215.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="840.31" cy="215.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="859.58" cy="215.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="219.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.84x</text>
+<text x="203.00" y="246.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_3_2</text>
+<line x1="261.05" y1="242.00" x2="254.96" y2="242.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="261.05" cy="242.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="254.96" cy="242.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="246.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.06x</text>
+<text x="203.00" y="273.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_5_4</text>
+<line x1="263.83" y1="269.00" x2="255.76" y2="269.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="263.83" cy="269.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="255.76" cy="269.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="273.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.07x</text>
+<text x="203.00" y="300.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_7_6</text>
+<line x1="387.31" y1="296.00" x2="367.37" y2="296.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="387.31" cy="296.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="367.37" cy="296.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="300.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.19x</text>
+<text x="203.00" y="327.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_8_7</text>
+<line x1="629.17" y1="323.00" x2="544.08" y2="323.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="629.17" cy="323.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="544.08" cy="323.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="327.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">2.14x</text>
+<text x="203.00" y="354.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c50_k3_p010_s1</text>
+<line x1="263.45" y1="350.00" x2="258.14" y2="350.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="263.45" cy="350.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="258.14" cy="350.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="354.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="end">1.05x</text>
+<text x="203.00" y="381.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c100_k3_p0048_s1</text>
+<line x1="273.83" y1="377.00" x2="278.87" y2="377.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="273.83" cy="377.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="278.87" cy="377.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="381.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.96x</text>
+<text x="203.00" y="408.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c80_k4_p011_s1</text>
+<line x1="316.31" y1="404.00" x2="301.92" y2="404.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="316.31" cy="404.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="301.92" cy="404.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="408.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.14x</text>
+<text x="203.00" y="435.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_planted_c30_k3_p03_s1</text>
+<line x1="262.80" y1="431.00" x2="255.83" y2="431.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="262.80" cy="431.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="255.83" cy="431.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="435.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.06x</text>
+<text x="203.00" y="462.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_planted_c40_k4_p03_s1</text>
+<line x1="268.38" y1="458.00" x2="275.71" y2="458.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="268.38" cy="458.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="275.71" cy="458.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="462.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.94x</text>
+<line x1="215.00" y1="477.00" x2="905.00" y2="477.00" stroke="#777777" stroke-width="1.00"/>
+</svg>

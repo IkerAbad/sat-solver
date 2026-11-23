@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-benchmark:
+    name: Build, test and benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build minisat python3
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Unit tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Generate benchmark instances
+        run: |
+          python3 scripts/generate_suite.py \
+            --satgen build/satgen \
+            --suite benchmarks/suite.json \
+            --out benchmarks/instances
+
+      - name: Compare against MiniSat
+        run: |
+          python3 scripts/benchmark.py \
+            --mode compare \
+            --solver build/satsolver \
+            --reference minisat \
+            --suite benchmarks/suite.json \
+            --instances benchmarks/instances \
+            --out-csv results/compare.csv \
+            --out-md results/compare.md \
+            --out-json results/compare.json
+
+      - name: Compare decision heuristics
+        run: |
+          python3 scripts/benchmark.py \
+            --mode heuristics \
+            --solver build/satsolver \
+            --suite benchmarks/suite.json \
+            --instances benchmarks/instances \
+            --out-csv results/heuristics.csv \
+            --out-md results/heuristics.md \
+            --out-json results/heuristics.json \
+            --trace-dir results/traces
+
+      - name: Draw figures
+        run: |
+          python3 scripts/plot.py \
+            --compare-csv results/compare.csv \
+            --heuristics-csv results/heuristics.csv \
+            --traces results/traces \
+            --out docs/figures
+
+      - name: Job summary
+        if: always()
+        run: |
+          test -f results/compare.md && cat results/compare.md >> "$GITHUB_STEP_SUMMARY" || true
+          test -f results/heuristics.md && cat results/heuristics.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload benchmark artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: |
+            results/
+            docs/figures/
+          if-no-files-found: warn
+
+  sanitizers:
+    name: Address and undefined sanitizers
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build
+
+      - name: Configure
+        run: |
+          cmake -S . -B build-sanitize -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer -O1" \
+            -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+
+      - name: Build
+        run: cmake --build build-sanitize
+
+      - name: Tests
+        env:
+          ASAN_OPTIONS: detect_leaks=1:abort_on_error=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+        run: ctest --test-dir build-sanitize --output-on-failure
