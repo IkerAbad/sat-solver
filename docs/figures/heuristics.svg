@@ -8,40 +8,40 @@
 <text x="93.00" y="78.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">vmtf</text>
 <circle cx="135.00" cy="74.00" r="5.00" fill="#d62728" stroke="none" stroke-width="1"/>
 <text x="145.00" y="78.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">random</text>
-<line x1="352.18" y1="92.00" x2="352.18" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="352.18" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.01</text>
-<line x1="562.69" y1="92.00" x2="562.69" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="562.69" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.1</text>
-<line x1="773.21" y1="92.00" x2="773.21" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="773.21" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">1</text>
+<line x1="337.05" y1="92.00" x2="337.05" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="337.05" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.01</text>
+<line x1="545.74" y1="92.00" x2="545.74" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="545.74" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.1</text>
+<line x1="754.42" y1="92.00" x2="754.42" y2="320.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="754.42" y="336.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">1</text>
 <text x="572.50" y="355.00" font-family="sans-serif" font-size="12.0" fill="#666666" font-weight="normal" text-anchor="middle">wall time (s)</text>
 <text x="208.00" y="127.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n100_s1</text>
-<rect x="220.00" y="108.00" width="32.61" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
-<text x="257.61" y="117.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.003 s</text>
-<rect x="220.00" y="122.00" width="100.24" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
-<text x="325.24" y="131.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.007 s</text>
-<rect x="220.00" y="136.00" width="373.30" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
-<text x="598.30" y="145.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.140 s</text>
+<rect x="220.00" y="108.00" width="32.33" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
+<text x="257.33" y="117.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.004 s</text>
+<rect x="220.00" y="122.00" width="99.32" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
+<text x="324.32" y="131.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.008 s</text>
+<rect x="220.00" y="136.00" width="374.22" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
+<text x="599.22" y="145.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.171 s</text>
 <text x="208.00" y="181.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n200_s1</text>
-<rect x="220.00" y="162.00" width="269.78" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
-<text x="494.78" y="171.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.045 s</text>
-<rect x="220.00" y="176.00" width="424.52" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
-<text x="649.52" y="185.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.245 s</text>
-<rect x="220.00" y="190.00" width="473.64" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
-<text x="698.64" y="199.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.419 s</text>
+<rect x="220.00" y="162.00" width="266.89" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
+<text x="491.89" y="171.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.052 s</text>
+<rect x="220.00" y="176.00" width="426.39" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
+<text x="651.39" y="185.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.304 s</text>
+<rect x="220.00" y="190.00" width="475.38" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
+<text x="700.38" y="199.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.521 s</text>
 <text x="208.00" y="235.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_7_6</text>
-<rect x="220.00" y="216.00" width="234.91" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
-<text x="459.91" y="225.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.031 s</text>
-<rect x="220.00" y="230.00" width="317.65" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
-<text x="542.65" y="239.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.076 s</text>
-<rect x="220.00" y="244.00" width="403.94" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
-<text x="628.94" y="253.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.195 s</text>
+<rect x="220.00" y="216.00" width="230.14" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
+<text x="455.14" y="225.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.035 s</text>
+<rect x="220.00" y="230.00" width="313.01" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
+<text x="538.01" y="239.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.087 s</text>
+<rect x="220.00" y="244.00" width="400.12" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
+<text x="625.12" y="253.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.227 s</text>
 <text x="208.00" y="289.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c80_k4_p011_s1</text>
-<rect x="220.00" y="270.00" width="132.42" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
-<text x="357.42" y="279.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.010 s</text>
-<rect x="220.00" y="284.00" width="202.22" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
-<text x="427.22" y="293.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.022 s</text>
-<rect x="220.00" y="298.00" width="656.49" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
-<text x="881.49" y="307.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">3.095 s</text>
+<rect x="220.00" y="270.00" width="127.74" height="11.00" rx="2.00" fill="#1f77b4" stroke="none" stroke-width="1.00"/>
+<text x="352.74" y="279.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.011 s</text>
+<rect x="220.00" y="284.00" width="200.03" height="11.00" rx="2.00" fill="#2ca02c" stroke="none" stroke-width="1.00"/>
+<text x="425.03" y="293.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">0.025 s</text>
+<rect x="220.00" y="298.00" width="656.91" height="11.00" rx="2.00" fill="#d62728" stroke="none" stroke-width="1.00"/>
+<text x="881.91" y="307.00" font-family="sans-serif" font-size="9.0" fill="#666666" font-weight="normal" text-anchor="start">3.863 s</text>
 <line x1="220.00" y1="320.00" x2="925.00" y2="320.00" stroke="#777777" stroke-width="1.00"/>
 </svg>
