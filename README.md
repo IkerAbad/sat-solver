@@ -47,9 +47,10 @@ instance dominates.
 
 - **`r3sat_n200_s1` (6.44x slower, 4.7x more conflicts).** This dense random
   3-SAT instance is a bad search trajectory for this implementation. MiniSat
-  finds a short refutation; my solver explores a different subtree. This is
-  search variance, not a correctness issue. Per conflict the gap is also
-  visible: a clause is a `std::vector`, and reductions detach watches eagerly.
+  finds a satisfying assignment after 947 conflicts; my solver explores a
+  different subtree and needs 4,418. This is search variance, not a correctness
+  issue. Per conflict the gap is also visible: a clause is a `std::vector`, and
+  reductions detach watches eagerly.
 - **`php_8_7` (2.25x slower despite fewer than half the conflicts).** The LBD
   heuristic produces 19,724 conflicts against MiniSat's 43,472, but each
   conflict costs roughly 18 microseconds against MiniSat's 4. The main
