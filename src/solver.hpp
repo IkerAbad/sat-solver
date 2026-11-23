@@ -22,11 +22,12 @@ inline Lit mkLit(int v, bool negative = false) {
 inline Lit neg(Lit p) { return p ^ 1; }
 
 struct Clause {
-  std::vector<Lit> lits;
   uint64_t id = 0;
   uint32_t lbd = 0;
+  uint32_t size = 0;
   bool learnt = false;
   bool deleted = false;
+  Lit* lits = nullptr;
 };
 
 struct Watcher {

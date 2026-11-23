@@ -4,6 +4,7 @@
 #include <cassert>
 #include <charconv>
 #include <limits>
+#include <new>
 #include <stdexcept>
 #include <utility>
 
@@ -15,6 +16,21 @@ int checkedNvars(int nvars) {
     throw std::invalid_argument("nvars must be non-negative");
   }
   return nvars;
+}
+
+Clause* newClause(size_t size) {
+  assert(size > 0);
+  void* memory = ::operator new(sizeof(Clause) + size * sizeof(Lit));
+  Clause* clause = new (memory) Clause();
+  clause->size = static_cast<uint32_t>(size);
+  clause->lits =
+      reinterpret_cast<Lit*>(reinterpret_cast<char*>(clause) + sizeof(Clause));
+  return clause;
+}
+
+void deleteClause(Clause* clause) {
+  clause->~Clause();
+  ::operator delete(clause);
 }
 
 }  // namespace
@@ -62,10 +78,10 @@ Solver::Solver(int nvars, SolverOptions options)
 Solver::~Solver() {
   flushProof();
   for (Clause* clause : originals_) {
-    delete clause;
+    deleteClause(clause);
   }
   for (Clause* clause : learnts_) {
-    delete clause;
+    deleteClause(clause);
   }
 }
 
@@ -131,12 +147,12 @@ bool Solver::addClause(std::vector<Lit> lits) {
     return false;
   }
 
-  Clause* clause = new Clause();
+  Clause* clause = newClause(normalized.size());
   clause->id = next_clause_id_++;
-  clause->lits = std::move(normalized);
+  std::copy(normalized.begin(), normalized.end(), clause->lits);
   originals_.push_back(clause);
 
-  if (clause->lits.size() == 1) {
+  if (clause->size == 1) {
     if (!enqueue(clause->lits[0], clause)) {
       ok_ = false;
       return false;
@@ -149,7 +165,7 @@ bool Solver::addClause(std::vector<Lit> lits) {
 }
 
 void Solver::attach(Clause* clause) {
-  assert(clause->lits.size() >= 2);
+  assert(clause->size >= 2);
   watches_[clause->lits[0]].push_back(Watcher{clause, clause->lits[1]});
   watches_[clause->lits[1]].push_back(Watcher{clause, clause->lits[0]});
 }
@@ -199,7 +215,7 @@ Clause* Solver::propagate() {
       }
 
       bool moved = false;
-      for (size_t k = 2; k < clause->lits.size(); ++k) {
+      for (size_t k = 2; k < clause->size; ++k) {
         if (value(clause->lits[k]) != -1) {
           clause->lits[1] = clause->lits[k];
           clause->lits[k] = false_lit;
@@ -252,7 +268,8 @@ void Solver::analyze(Clause* conflict, std::vector<Lit>& out, int& backtrack_lev
       error_ = "conflict analysis reached a decision variable prematurely";
       break;
     }
-    for (Lit q : conflict->lits) {
+    for (uint32_t literal_index = 0; literal_index < conflict->size; ++literal_index) {
+      Lit q = conflict->lits[literal_index];
       if (q == p) {
         continue;
       }
@@ -356,7 +373,8 @@ bool Solver::litRedundant(Lit p, uint32_t abstract_levels) {
       return false;
     }
 
-    for (Lit r : reason->lits) {
+    for (uint32_t literal_index = 0; literal_index < reason->size; ++literal_index) {
+      Lit r = reason->lits[literal_index];
       if (r == q) {
         continue;
       }
@@ -411,9 +429,9 @@ void Solver::addLearnt(std::vector<Lit>& lits, int backtrack_level, uint32_t lbd
     return;
   }
 
-  Clause* clause = new Clause();
+  Clause* clause = newClause(lits.size());
   clause->id = next_clause_id_++;
-  clause->lits = lits;
+  std::copy(lits.begin(), lits.end(), clause->lits);
   clause->lbd = lbd;
   clause->learnt = true;
   learnts_.push_back(clause);
@@ -428,7 +446,8 @@ void Solver::addLearnt(std::vector<Lit>& lits, int backtrack_level, uint32_t lbd
 }
 
 bool Solver::isLocked(const Clause* clause) const {
-  for (Lit p : clause->lits) {
+  for (uint32_t literal_index = 0; literal_index < clause->size; ++literal_index) {
+    Lit p = clause->lits[literal_index];
     if (value(p) == 1 && reason_[var(p)] == clause) {
       return true;
     }
@@ -442,7 +461,7 @@ void Solver::reduceDB() {
   std::vector<Clause*> candidates;
   candidates.reserve(learnts_.size());
   for (Clause* clause : learnts_) {
-    if (clause->lits.size() <= 2 || clause->lbd <= 2) {
+    if (clause->size <= 2 || clause->lbd <= 2) {
       continue;
     }
     if (isLocked(clause)) {
@@ -460,8 +479,8 @@ void Solver::reduceDB() {
     if (a->lbd != b->lbd) {
       return a->lbd > b->lbd;
     }
-    if (a->lits.size() != b->lits.size()) {
-      return a->lits.size() > b->lits.size();
+    if (a->size != b->size) {
+      return a->size > b->size;
     }
     return a->id < b->id;
   });
@@ -475,7 +494,7 @@ void Solver::reduceDB() {
   for (Clause* clause : learnts_) {
     if (clause->deleted) {
       detach(clause);
-      delete clause;
+      deleteClause(clause);
       ++stats_.deleted;
     } else {
       kept.push_back(clause);
@@ -486,8 +505,8 @@ void Solver::reduceDB() {
 
 bool Solver::verifyModel() const {
   auto satisfies = [this](const Clause* clause) {
-    for (Lit p : clause->lits) {
-      if (value(p) == 1) {
+    for (uint32_t literal_index = 0; literal_index < clause->size; ++literal_index) {
+      if (value(clause->lits[literal_index]) == 1) {
         return true;
       }
     }
