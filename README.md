@@ -16,62 +16,66 @@ Measured on 14 deterministic instances, all solved with verified answers. The
 table is end-to-end wall time (process start included), median of the
 successful repetitions. `satsolver` uses VSIDS. Reference: MiniSat 2.2.1.
 
-Environment: Windows 11, Ryzen 9 5900X, 32 GB DDR4-3600, g++ 14.2.0 (MSYS2
-UCRT64), MiniSat 2.2.1 built from upstream source with the same compiler.
-Times below 20 ms are dominated by process startup.
+Environment: GitHub Actions `ubuntu-latest` (Ubuntu 26.04), GCC 15.2.0,
+MiniSat 2.2.1 from the Ubuntu package, CI run 45183174087 on 2026-11-23.
+Times below roughly 10 ms are dominated by process startup.
 
 | Instance | Status | satsolver s | conflicts | MiniSat s | conflicts | ratio |
 |---|---:|---:|---:|---:|---:|---:|
-| r3sat_n60_s1 | UNSAT | 0.0144 | 119 | 0.0133 | 99 | 1.08x |
-| r3sat_n100_s1 | UNSAT | 0.0143 | 435 | 0.0146 | 463 | 0.98x |
-| r3sat_n150_s1 | SAT | 0.0287 | 2,343 | 0.0223 | 2,283 | 1.29x |
-| r3sat_n200_s1 | SAT | 0.0529 | 4,418 | 0.0192 | 947 | 2.76x |
-| r3sat_n250_s1 | UNSAT | 2.253 | 126,465 | 2.676 | 452,297 | 0.84x |
-| php_3_2 | UNSAT | 0.0128 | 7 | 0.0121 | 0 | 1.06x |
-| php_5_4 | UNSAT | 0.0131 | 136 | 0.0122 | 165 | 1.07x |
-| php_7_6 | UNSAT | 0.0395 | 3,249 | 0.0331 | 8,152 | 1.19x |
-| php_8_7 | UNSAT | 0.3422 | 19,724 | 0.1601 | 42,018 | 2.14x |
-| color_c50_k3_p010_s1 | UNSAT | 0.0131 | 18 | 0.0125 | 31 | 1.05x |
-| color_c100_k3_p0048_s1 | UNSAT | 0.0143 | 140 | 0.0150 | 133 | 0.96x |
-| color_c80_k4_p011_s1 | UNSAT | 0.0210 | 654 | 0.0184 | 552 | 1.14x |
-| color_planted_c30_k3_p03_s1 | SAT | 0.0130 | 2 | 0.0122 | 2 | 1.06x |
-| color_planted_c40_k4_p03_s1 | SAT | 0.0137 | 37 | 0.0146 | 12 | 0.94x |
+| r3sat_n60_s1 | UNSAT | 0.0018 | 119 | 0.0024 | 99 | 0.72x |
+| r3sat_n100_s1 | UNSAT | 0.0033 | 435 | 0.0034 | 463 | 0.96x |
+| r3sat_n150_s1 | SAT | 0.0184 | 2,343 | 0.0112 | 2,283 | 1.64x |
+| r3sat_n200_s1 | SAT | 0.0439 | 4,418 | 0.0068 | 947 | 6.44x |
+| r3sat_n250_s1 | UNSAT | 2.357 | 126,465 | 2.824 | 452,349 | 0.83x |
+| php_3_2 | UNSAT | 0.0011 | 7 | 0.0019 | 0 | 0.59x |
+| php_5_4 | UNSAT | 0.0014 | 136 | 0.0023 | 164 | 0.63x |
+| php_7_6 | UNSAT | 0.0302 | 3,249 | 0.0266 | 9,328 | 1.14x |
+| php_8_7 | UNSAT | 0.3519 | 19,724 | 0.1562 | 43,472 | 2.25x |
+| color_c50_k3_p010_s1 | UNSAT | 0.0015 | 18 | 0.0025 | 31 | 0.60x |
+| color_c100_k3_p0048_s1 | UNSAT | 0.0028 | 140 | 0.0033 | 133 | 0.85x |
+| color_c80_k4_p011_s1 | UNSAT | 0.0095 | 654 | 0.0071 | 552 | 1.34x |
+| color_planted_c30_k3_p03_s1 | SAT | 0.0013 | 2 | 0.0021 | 2 | 0.59x |
+| color_planted_c40_k4_p03_s1 | SAT | 0.0017 | 37 | 0.0025 | 12 | 0.66x |
 
-Totals: 2.846 s for `satsolver`, 3.036 s for MiniSat. `satsolver` is faster on
-4 of 14 instances, and the total is slightly lower because the largest
+Totals: 2.826 s for `satsolver`, 3.053 s for MiniSat. `satsolver` is faster on
+9 of 14 instances, and the total is slightly lower because the largest
 instance dominates.
 
 ![Solve time against MiniSat](docs/figures/benchmark.svg)
 
 ### Where it loses, and why
 
-- **`r3sat_n200_s1` (2.76x slower, 4.7x more conflicts).** This dense random
+- **`r3sat_n200_s1` (6.44x slower, 4.7x more conflicts).** This dense random
   3-SAT instance is a bad search trajectory for this implementation. MiniSat
   finds a short refutation; my solver explores a different subtree. This is
   search variance, not a correctness issue. Per conflict the gap is also
   visible: a clause is a `std::vector`, and reductions detach watches eagerly.
-- **`php_8_7` (2.14x slower despite half the conflicts).** The LBD heuristic
-  produces 19,724 conflicts against MiniSat's 42,018, but each conflict costs
-  roughly 17 microseconds against MiniSat's 4. The main suspects are
-  per-clause allocations, the eager `detach` scan during database reduction,
-  and the extra indirection of `std::vector` clause literals. MiniSat uses a
-  region allocator and lazy deletion of learned clauses. This is the clearest
-  place for a future performance pass.
-- **`r3sat_n150_s1` (1.29x slower).** Similar conflict counts (2,343 against
+- **`php_8_7` (2.25x slower despite fewer than half the conflicts).** The LBD
+  heuristic produces 19,724 conflicts against MiniSat's 43,472, but each
+  conflict costs roughly 18 microseconds against MiniSat's 4. The main
+  suspects are per-clause allocations, the eager `detach` scan during database
+  reduction, and the extra indirection of `std::vector` clause literals.
+  MiniSat uses a region allocator and lazy deletion of learned clauses. This
+  is the clearest place for a future performance pass.
+- **`r3sat_n150_s1` (1.64x slower).** Similar conflict counts (2,343 against
   2,283), so this is mostly constant overhead.
-- **Small instances.** Below roughly 20 ms, process startup is most of the
-  measured time. Ratios close to 1.0 on the smallest formulas should not be
-  read as algorithmic parity.
+- **`color_c80_k4_p011_s1` (1.34x slower).** 654 conflicts against 552, again
+  a constant-factor gap.
+- **Small instances.** Below roughly 10 ms, process startup and constant
+  factors are most of the measured time. The ratios on the smallest formulas
+  should not be read as algorithmic parity.
 
 ### Where it wins
 
-- **`r3sat_n250_s1`.** 126,465 conflicts against 452,297, and 0.84x the wall
+- **`r3sat_n250_s1`.** 126,465 conflicts against 452,349, and 0.83x the wall
   time. LBD-based reduction keeps short glue clauses and the first-UIP
   minimization pays off on this UNSAT instance.
-- **`php_7_6`.** 3,249 conflicts against 8,152, although the wall time is still
-  1.19x because of the per-conflict overhead above.
-- **`color_c100_k3_p0048_s1` and `color_planted_c40_k4_p03_s1`.** Slightly
-  faster, with comparable conflict counts.
+- **`php_7_6`.** 3,249 conflicts against 9,328, although the wall time is still
+  1.14x because of the per-conflict overhead above.
+- **Small instances.** `php_3_2`, `php_5_4`, `color_c50_k3_p010_s1`,
+  `color_planted_c30_k3_p03_s1` and `color_planted_c40_k4_p03_s1` are faster
+  end-to-end, but at 1-2 ms these results mostly measure startup and constant
+  overhead. `color_c100_k3_p0048_s1` is a more meaningful win at 0.85x.
 
 The full measured records are in `results/compare.csv` and
 `results/compare.json` when the benchmark runs, and are uploaded as CI
@@ -85,10 +89,10 @@ subset marked `heuristics` in `benchmarks/suite.json`.
 
 | Instance | VSIDS | VMTF | random |
 |---|---:|---:|---:|
-| r3sat_n100_s1 | 0.0141 s / 435 | 0.0176 s / 1,336 | 0.1472 s / 14,879 |
-| r3sat_n200_s1 | 0.0563 s / 4,418 | 0.2515 s / 22,789 | 0.4301 s / 32,926 |
-| php_7_6 | 0.0400 s / 3,249 | 0.0807 s / 7,255 | 0.1952 s / 12,815 |
-| color_c80_k4_p011_s1 | 0.0218 s / 654 | 0.0337 s / 1,837 | 3.053 s / 81,910 |
+| r3sat_n100_s1 | 0.0034 s / 435 | 0.0071 s / 1,336 | 0.1398 s / 14,879 |
+| r3sat_n200_s1 | 0.0450 s / 4,418 | 0.2447 s / 22,789 | 0.4188 s / 32,926 |
+| php_7_6 | 0.0308 s / 3,249 | 0.0760 s / 7,255 | 0.1954 s / 12,815 |
+| color_c80_k4_p011_s1 | 0.0100 s / 654 | 0.0215 s / 1,837 | 3.095 s / 81,910 |
 
 ![Heuristic comparison](docs/figures/heuristics.svg)
 
