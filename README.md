@@ -103,6 +103,13 @@ overhead where propagation dominates, not the number of conflicts on
 `r3sat_n200_s1`. Reducing that gap needs a different search or inprocessing
 change, not a storage change.
 
+Two cheaper alternatives were measured and rejected. Changing the restart
+base to 50 or 200 improved `r3sat_n150_s1` or `r3sat_n200_s1` but made
+`php_8_7` and `r3sat_n250_s1` clearly worse. Earlier or more frequent database
+reduction improved `php_8_7` but regressed `r3sat_n250_s1`. Those variants
+were not kept; the clause layout was the only change that improved the target
+without a clear regression elsewhere.
+
 ### Where it loses, and why
 
 - **`r3sat_n200_s1` (6.18x slower, 4.7x more conflicts).** This dense random
