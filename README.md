@@ -18,7 +18,9 @@ successful repetitions. `satsolver` uses VSIDS. Reference: MiniSat 2.2.1.
 
 Environment: GitHub Actions `ubuntu-latest` (Ubuntu 26.04), GCC 15.2.0,
 MiniSat 2.2.1 from the Ubuntu package, CI run 45183174087 on 2026-11-23.
-Times below roughly 10 ms are dominated by process startup.
+The runner is shared, so absolute times vary between runs; this table and the
+figures are from that one run. Times below roughly 10 ms are dominated by
+process startup.
 
 | Instance | Status | satsolver s | conflicts | MiniSat s | conflicts | ratio |
 |---|---:|---:|---:|---:|---:|---:|
