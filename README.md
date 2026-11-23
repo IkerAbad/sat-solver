@@ -18,52 +18,110 @@ table is end-to-end wall time (process start included), median of the
 successful repetitions. `satsolver` uses VSIDS. Reference: MiniSat 2.2.1.
 
 Environment: GitHub Actions `ubuntu-latest` (Ubuntu 26.04), GCC 15.2.0,
-MiniSat 2.2.1 from the Ubuntu package, CI run 45202422247 on 2026-11-23.
+MiniSat 2.2.1 from the Ubuntu package, CI run 45219419112 on 2026-11-23.
 The runner is shared, so absolute times vary between runs; this table and the
 figures are from that one run. Times below roughly 10 ms are dominated by
 process startup.
 
 | Instance | Status | satsolver s | conflicts | MiniSat s | conflicts | ratio |
 |---|---:|---:|---:|---:|---:|---:|
-| r3sat_n60_s1 | UNSAT | 0.0021 | 119 | 0.0027 | 99 | 0.78x |
-| r3sat_n100_s1 | UNSAT | 0.0039 | 435 | 0.0040 | 463 | 0.98x |
-| r3sat_n150_s1 | SAT | 0.0214 | 2,343 | 0.0126 | 2,283 | 1.70x |
-| r3sat_n200_s1 | SAT | 0.0515 | 4,418 | 0.0077 | 947 | 6.67x |
-| r3sat_n250_s1 | UNSAT | 2.917 | 126,465 | 3.258 | 452,349 | 0.90x |
-| php_3_2 | UNSAT | 0.0014 | 7 | 0.0023 | 0 | 0.60x |
-| php_5_4 | UNSAT | 0.0017 | 136 | 0.0027 | 164 | 0.65x |
-| php_7_6 | UNSAT | 0.0359 | 3,249 | 0.0296 | 9,328 | 1.21x |
-| php_8_7 | UNSAT | 0.4250 | 19,724 | 0.1763 | 43,472 | 2.41x |
-| color_c50_k3_p010_s1 | UNSAT | 0.0017 | 18 | 0.0028 | 31 | 0.60x |
-| color_c100_k3_p0048_s1 | UNSAT | 0.0033 | 140 | 0.0039 | 133 | 0.85x |
-| color_c80_k4_p011_s1 | UNSAT | 0.0110 | 654 | 0.0081 | 552 | 1.36x |
-| color_planted_c30_k3_p03_s1 | SAT | 0.0015 | 2 | 0.0026 | 2 | 0.57x |
-| color_planted_c40_k4_p03_s1 | SAT | 0.0020 | 37 | 0.0031 | 12 | 0.65x |
+| r3sat_n60_s1 | UNSAT | 0.0020 | 119 | 0.0026 | 99 | 0.76x |
+| r3sat_n100_s1 | UNSAT | 0.0034 | 435 | 0.0036 | 463 | 0.94x |
+| r3sat_n150_s1 | SAT | 0.0184 | 2,343 | 0.0114 | 2,283 | 1.61x |
+| r3sat_n200_s1 | SAT | 0.0432 | 4,418 | 0.0070 | 947 | 6.18x |
+| r3sat_n250_s1 | UNSAT | 2.219 | 126,465 | 2.823 | 452,349 | 0.79x |
+| php_3_2 | UNSAT | 0.0013 | 7 | 0.0020 | 0 | 0.67x |
+| php_5_4 | UNSAT | 0.0015 | 136 | 0.0023 | 164 | 0.65x |
+| php_7_6 | UNSAT | 0.0296 | 3,249 | 0.0265 | 9,328 | 1.12x |
+| php_8_7 | UNSAT | 0.3388 | 19,724 | 0.1559 | 43,472 | 2.17x |
+| color_c50_k3_p010_s1 | UNSAT | 0.0017 | 18 | 0.0027 | 31 | 0.63x |
+| color_c100_k3_p0048_s1 | UNSAT | 0.0030 | 140 | 0.0035 | 133 | 0.84x |
+| color_c80_k4_p011_s1 | UNSAT | 0.0094 | 654 | 0.0074 | 552 | 1.27x |
+| color_planted_c30_k3_p03_s1 | SAT | 0.0013 | 2 | 0.0023 | 2 | 0.57x |
+| color_planted_c40_k4_p03_s1 | SAT | 0.0018 | 37 | 0.0027 | 12 | 0.67x |
 
-Totals: 3.479 s for `satsolver`, 3.516 s for MiniSat. `satsolver` is faster on
-9 of 14 instances, and the total is slightly lower because the largest
-instance dominates.
+Totals: 2.674 s for `satsolver`, 3.053 s for MiniSat. `satsolver` is faster on
+9 of 14 instances, and the total is lower because the largest instance
+dominates.
 
 ![Solve time against MiniSat](docs/figures/benchmark.svg)
 
+## Performance experiment: one-allocation clauses
+
+The losses in the previous table were concentrated in `php_8_7` (2.2x),
+`r3sat_n200_s1` (6.2x), `r3sat_n150_s1` (1.6x) and `color_c80` (1.3x). A
+temporary instrumented build timed the main phases on the old v0.1.0 code:
+
+| Instance | propagate | analyze | learn | reduce | pick |
+|---|---:|---:|---:|---:|---:|
+| php_8_7 | 88% | 5% | 3% | 2% | 0.2% |
+| r3sat_n250_s1 | 82% | 7% | 8% | 2% | 0.2% |
+| r3sat_n200_s1 | 72% | 10% | 13% | 2% | 0.5% |
+| color_c80_k4_p011_s1 | 66% | 13% | 18% | 0% | 0.4% |
+
+Propagation dominates, especially on `php_8_7`. The old `Clause` owned a
+`std::vector<Lit>`, so every clause had a header allocation plus a separate
+literal allocation and an extra indirection. The experiment replaces this
+with a single allocation per clause: the header and the literal array are
+contiguous, and the clause stores a pointer into its own trailing storage.
+Watch lists, propagation, conflict analysis and DRAT logging are unchanged.
+The change removes one allocation and one indirection per clause, but it does
+not change the search trajectory: conflict counts are identical before and
+after.
+
+Measured with `scripts/compare_versions.py`, interleaving v0.1.0, the new
+build and MiniSat in every repetition on the same Windows machine (Ryzen 9
+5900X, g++ 14.2.0, MiniSat 2.2.1 built from source), five repetitions,
+median wall time:
+
+| Instance | Status | before s | after s | MiniSat s | after/before | after/MiniSat | before conflicts | after conflicts |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| r3sat_n60_s1 | UNSAT | 0.0137 | 0.0136 | 0.0135 | 1.00x | 1.01x | 119 | 119 |
+| r3sat_n100_s1 | UNSAT | 0.0157 | 0.0151 | 0.0151 | 1.04x | 1.00x | 435 | 435 |
+| r3sat_n150_s1 | SAT | 0.0294 | 0.0287 | 0.0227 | 1.02x | 1.27x | 2,343 | 2,343 |
+| r3sat_n200_s1 | SAT | 0.0539 | 0.0520 | 0.0183 | 1.04x | 2.84x | 4,418 | 4,418 |
+| r3sat_n250_s1 | UNSAT | 2.334 | 2.133 | 2.761 | 1.09x | 0.77x | 126,465 | 126,465 |
+| php_3_2 | UNSAT | 0.0140 | 0.0128 | 0.0131 | 1.10x | 0.98x | 7 | 7 |
+| php_5_4 | UNSAT | 0.0142 | 0.0136 | 0.0134 | 1.04x | 1.01x | 136 | 136 |
+| php_7_6 | UNSAT | 0.0409 | 0.0390 | 0.0359 | 1.05x | 1.09x | 3,249 | 3,249 |
+| php_8_7 | UNSAT | 0.3618 | 0.3302 | 0.1650 | 1.10x | 2.00x | 19,724 | 19,724 |
+| color_c50_k3_p010_s1 | UNSAT | 0.0131 | 0.0133 | 0.0136 | 0.98x | 0.98x | 18 | 18 |
+| color_c100_k3_p0048_s1 | UNSAT | 0.0144 | 0.0145 | 0.0145 | 1.00x | 1.00x | 140 | 140 |
+| color_c80_k4_p011_s1 | UNSAT | 0.0215 | 0.0212 | 0.0184 | 1.02x | 1.15x | 654 | 654 |
+| color_planted_c30_k3_p03_s1 | SAT | 0.0134 | 0.0140 | 0.0133 | 0.96x | 1.05x | 2 | 2 |
+| color_planted_c40_k4_p03_s1 | SAT | 0.0150 | 0.0162 | 0.0151 | 0.93x | 1.08x | 37 | 37 |
+
+Totals: 2.955 s before, 2.717 s after, 3.133 s for MiniSat. The new build is
+faster on 10/14 instances. The improvement is clearest on `php_8_7` (10%
+faster in this session; its CI ratio moved from 2.41x to 2.17x) and
+`r3sat_n250_s1` (9% faster). `r3sat_n200_s1` only improves 4%, within the
+run-to-run noise, and remains a search-trajectory loss. Small instances show
+small regressions of up to 7%, consistent with startup noise.
+
+The experiment is a positive but partial result: it attacks per-conflict
+overhead where propagation dominates, not the number of conflicts on
+`r3sat_n200_s1`. Reducing that gap needs a different search or inprocessing
+change, not a storage change.
+
 ### Where it loses, and why
 
-- **`r3sat_n200_s1` (6.67x slower, 4.7x more conflicts).** This dense random
+- **`r3sat_n200_s1` (6.18x slower, 4.7x more conflicts).** This dense random
   3-SAT instance is a bad search trajectory for this implementation. MiniSat
   finds a satisfying assignment after 947 conflicts; my solver explores a
   different subtree and needs 4,418. This is search variance, not a correctness
-  issue. Per conflict the gap is also visible: a clause is a `std::vector`, and
-  reductions detach watches eagerly.
-- **`php_8_7` (2.41x slower despite fewer than half the conflicts).** The LBD
+  issue. The clause layout change does not alter it: the conflict count is
+  identical, and the measured gain is only 4%, within noise.
+- **`php_8_7` (2.17x slower despite fewer than half the conflicts).** The LBD
   heuristic produces 19,724 conflicts against MiniSat's 43,472, but each
-  conflict costs roughly 21 microseconds against MiniSat's 4. The main
-  suspects are per-clause allocations, the eager `detach` scan during database
-  reduction, and the extra indirection of `std::vector` clause literals.
-  MiniSat uses a region allocator and lazy deletion of learned clauses. This
-  is the clearest place for a future performance pass.
-- **`r3sat_n150_s1` (1.70x slower).** Similar conflict counts (2,343 against
+  conflict still costs roughly 17 microseconds against MiniSat's 4. The
+  one-allocation clause layout removed one indirection and one allocation per
+  clause, improving this instance by 10%, but per-clause allocation and the
+  eager `detach` scan during reduction remain. MiniSat uses a region allocator
+  and lazy deletion of learned clauses. This is still the clearest place for a
+  future performance pass.
+- **`r3sat_n150_s1` (1.61x slower).** Similar conflict counts (2,343 against
   2,283), so this is mostly constant overhead.
-- **`color_c80_k4_p011_s1` (1.36x slower).** 654 conflicts against 552, again
+- **`color_c80_k4_p011_s1` (1.27x slower).** 654 conflicts against 552, again
   a constant-factor gap.
 - **Small instances.** Below roughly 10 ms, process startup and constant
   factors are most of the measured time. The ratios on the smallest formulas
@@ -71,16 +129,16 @@ instance dominates.
 
 ### Where it wins
 
-- **`r3sat_n250_s1`.** 126,465 conflicts against 452,349, and 0.90x the wall
+- **`r3sat_n250_s1`.** 126,465 conflicts against 452,349, and 0.79x the wall
   time. The lower conflict count is consistent with LBD-based reduction and
   first-UIP minimization keeping a useful core of learned clauses on this
   UNSAT instance.
 - **`php_7_6`.** 3,249 conflicts against 9,328, although the wall time is still
-  1.21x because of the per-conflict overhead above.
+  1.12x because of the per-conflict overhead above.
 - **Small instances.** `php_3_2`, `php_5_4`, `color_c50_k3_p010_s1`,
   `color_planted_c30_k3_p03_s1` and `color_planted_c40_k4_p03_s1` are faster
   end-to-end, but at 1-2 ms these results mostly measure startup and constant
-  overhead. `color_c100_k3_p0048_s1` is a more meaningful win at 0.85x.
+  overhead. `color_c100_k3_p0048_s1` is a more meaningful win at 0.84x.
 
 The full measured records are in `results/compare.csv` and
 `results/compare.json` when the benchmark runs, and are uploaded as CI
@@ -105,28 +163,28 @@ the same 14 instances, in the same run:
 
 | Instance | Status | no proof s | with proof s | delta | proof size | proof clauses | drat-trim s | result |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
-| r3sat_n60_s1 | UNSAT | 0.0020 | 0.0019 | -2.7% | 1.6 KiB | 119 | 0.0569 | verified |
-| r3sat_n100_s1 | UNSAT | 0.0040 | 0.0039 | -2.8% | 8.5 KiB | 435 | 0.0585 | verified |
-| r3sat_n150_s1 | SAT | 0.0212 | 0.0216 | +1.6% | 73.6 KiB | 2,343 | - | SAT model checked |
-| r3sat_n200_s1 | SAT | 0.0510 | 0.0520 | +2.0% | 196.8 KiB | 4,418 | - | SAT model checked |
-| r3sat_n250_s1 | UNSAT | 2.833 | 2.881 | +1.7% | 6.31 MiB | 126,465 | 4.439 | verified |
-| php_3_2 | UNSAT | 0.0015 | 0.0015 | -3.7% | 44 B | 7 | 0.0576 | verified |
-| php_5_4 | UNSAT | 0.0017 | 0.0018 | +4.3% | 2.7 KiB | 136 | 0.0575 | verified |
-| php_7_6 | UNSAT | 0.0350 | 0.0357 | +2.0% | 151.9 KiB | 3,249 | 0.0904 | verified |
-| php_8_7 | UNSAT | 0.4177 | 0.4303 | +3.0% | 1.21 MiB | 19,724 | 0.6496 | verified |
-| color_c50_k3_p010_s1 | UNSAT | 0.0023 | 0.0017 | -24.8% | 245 B | 18 | 0.0576 | verified |
-| color_c100_k3_p0048_s1 | UNSAT | 0.0036 | 0.0034 | -6.4% | 3.8 KiB | 140 | 0.0578 | verified |
-| color_c80_k4_p011_s1 | UNSAT | 0.0117 | 0.0117 | +0.2% | 37.2 KiB | 654 | 0.0639 | verified |
-| color_planted_c30_k3_p03_s1 | SAT | 0.0016 | 0.0015 | -4.1% | 23 B | 2 | - | SAT model checked |
-| color_planted_c40_k4_p03_s1 | SAT | 0.0021 | 0.0021 | +1.1% | 1.2 KiB | 37 | - | SAT model checked |
+| r3sat_n60_s1 | UNSAT | 0.0014 | 0.0013 | -9.6% | 1.6 KiB | 119 | 0.0407 | verified |
+| r3sat_n100_s1 | UNSAT | 0.0028 | 0.0028 | -1.8% | 8.5 KiB | 435 | 0.0375 | verified |
+| r3sat_n150_s1 | SAT | 0.0165 | 0.0167 | +1.2% | 73.6 KiB | 2,343 | - | SAT model checked |
+| r3sat_n200_s1 | SAT | 0.0415 | 0.0402 | -3.2% | 196.8 KiB | 4,418 | - | SAT model checked |
+| r3sat_n250_s1 | UNSAT | 2.041 | 2.067 | +1.3% | 6.31 MiB | 126,465 | 3.929 | verified |
+| php_3_2 | UNSAT | 0.0013 | 0.000914 | -28.5% | 44 B | 7 | 0.0389 | verified |
+| php_5_4 | UNSAT | 0.0013 | 0.0012 | -10.3% | 2.7 KiB | 136 | 0.0395 | verified |
+| php_7_6 | UNSAT | 0.0271 | 0.0275 | +1.6% | 151.9 KiB | 3,249 | 0.0664 | verified |
+| php_8_7 | UNSAT | 0.3075 | 0.3116 | +1.3% | 1.21 MiB | 19,724 | 0.4837 | verified |
+| color_c50_k3_p010_s1 | UNSAT | 0.0015 | 0.0012 | -22.7% | 245 B | 18 | 0.0388 | verified |
+| color_c100_k3_p0048_s1 | UNSAT | 0.0025 | 0.0023 | -4.7% | 3.8 KiB | 140 | 0.0394 | verified |
+| color_c80_k4_p011_s1 | UNSAT | 0.0084 | 0.0083 | -0.6% | 37.2 KiB | 654 | 0.0436 | verified |
+| color_planted_c30_k3_p03_s1 | SAT | 0.0011 | 0.0010 | -7.1% | 23 B | 2 | - | SAT model checked |
+| color_planted_c40_k4_p03_s1 | SAT | 0.0014 | 0.0013 | -4.8% | 1.2 KiB | 37 | - | SAT model checked |
 
-UNSAT proofs verified: 10/10. Total solve time: 3.388 s without proof, 3.451 s
-with proof (about 1.9% overhead). Total proof size: 7.99 MiB. Total drat-trim
-time: 5.59 s.
+UNSAT proofs verified: 10/10. Total solve time: 2.455 s without proof, 2.484 s
+with proof (about 1.2% overhead). Total proof size: 7.99 MiB. Total drat-trim
+time: 4.76 s.
 
 The small negative deltas are process-startup noise on sub-10 ms runs. The
-meaningful result is that proof writing adds about 2% to solve time on this
-suite, and that the largest proof (6.31 MiB for `r3sat_n250_s1`) checks in 4.4
+meaningful result is that proof writing adds about 1.2% to solve time on this
+suite, and that the largest proof (6.31 MiB for `r3sat_n250_s1`) checks in 3.9
 seconds. The proof is text and does not emit deletion lines, so it is larger
 than a binary or deletion-trimmed proof would be. drat-trim is installed only
 for verification, not linked into the solver.
@@ -139,10 +197,10 @@ subset marked `heuristics` in `benchmarks/suite.json`.
 
 | Instance | VSIDS | VMTF | random |
 |---|---:|---:|---:|
-| r3sat_n100_s1 | 0.0039 s / 435 | 0.0082 s / 1,336 | 0.1707 s / 14,879 |
-| r3sat_n200_s1 | 0.0522 s / 4,418 | 0.3036 s / 22,789 | 0.5212 s / 32,926 |
-| php_7_6 | 0.0348 s / 3,249 | 0.0869 s / 7,255 | 0.2272 s / 12,815 |
-| color_c80_k4_p011_s1 | 0.0113 s / 654 | 0.0250 s / 1,837 | 3.863 s / 81,910 |
+| r3sat_n100_s1 | 0.0035 s / 435 | 0.0072 s / 1,336 | 0.1362 s / 14,879 |
+| r3sat_n200_s1 | 0.0437 s / 4,418 | 0.2348 s / 22,789 | 0.4002 s / 32,926 |
+| php_7_6 | 0.0325 s / 3,249 | 0.0811 s / 7,255 | 0.1917 s / 12,815 |
+| color_c80_k4_p011_s1 | 0.0099 s / 654 | 0.0213 s / 1,837 | 2.882 s / 81,910 |
 
 ![Heuristic comparison](docs/figures/heuristics.svg)
 
@@ -273,6 +331,20 @@ python3 scripts/benchmark.py \
 python3 scripts/plot.py --out docs/figures
 ```
 
+The before/after experiment is reproduced by building the baseline from tag
+`v0.1.0` and running the same suite through the interleaved harness:
+
+```sh
+python3 scripts/compare_versions.py \
+  --baseline /path/to/v0.1.0/satsolver \
+  --candidate build/satsolver \
+  --reference minisat \
+  --suite benchmarks/suite.json \
+  --instances benchmarks/instances \
+  --reps 5 \
+  --out-md results/before_after.md
+```
+
 Every SAT answer is checked clause by clause by `scripts/verify.py`. The
 checker parses the model independently of the C++ code, requires every
 variable to be assigned, and verifies every clause. Both solvers must agree on
@@ -293,8 +365,9 @@ CSV, Markdown, JSON and figures.
   on a conflict or a complete assignment. CDCL replaces the chronological
   backtracking of plain DPLL with conflict analysis and backjumping.
 - **Literals and clauses.** A literal is `2*var` (positive) or `2*var+1`
-  (negative). Clauses own a `std::vector<Lit>` and are referenced by stable
-  pointers.
+  (negative). A clause is a single allocation containing its header and its
+  literal array; the header stores a pointer to the trailing literals. Clause
+  pointers are stable.
 - **Watched literals.** Two watched literals per clause. Each watch entry
   stores the clause and a blocker literal. Propagation only opens the clause
   when the blocker is not true. A moved watch is reattached to a literal that
@@ -363,9 +436,9 @@ missing and where the implementation is weak.
   self-subsuming resolution, vivification, probing or equivalent. MiniSat
   performs some of this, which is one reason it needs fewer conflicts on
   structured instances.
-- **Advanced clause management.** Learned clauses live in `std::vector`
-  objects. There is no clause arena, no lazy deletion of watches, no tiered
-  LBD database and no chronological backtracking.
+- **Advanced clause management.** Clauses use one allocation with inline
+  literal storage, but there is no chunked allocator, no lazy deletion of
+  watches, no tiered LBD database and no chronological backtracking.
 - **Restart and search variants.** Only Luby restarts are available. There is
   no dynamic or glucose-style restart policy, no local search, no portfolio
   and no parallel solver.
@@ -379,14 +452,14 @@ missing and where the implementation is weak.
 
 ### Where it loses
 
-- `r3sat_n200_s1`: 4,418 conflicts against MiniSat's 947 and 6.67x the wall
+- `r3sat_n200_s1`: 4,418 conflicts against MiniSat's 947 and 6.18x the wall
   time. Different search trajectory on a dense random instance; not a
   correctness problem.
-- `php_8_7`: fewer conflicts than MiniSat (19,724 against 43,472) but 2.41x
-  the time. Per-conflict cost is about 21 microseconds against MiniSat's 4.
-  The main suspects are per-clause allocation, eager watch detachment during
-  reduction and the indirection of `std::vector` literals.
-- `r3sat_n150_s1` and `color_c80_k4_p011_s1`: 1.70x and 1.36x slower with
+- `php_8_7`: fewer conflicts than MiniSat (19,724 against 43,472) but 2.17x
+  the time. Per-conflict cost is about 17 microseconds against MiniSat's 4.
+  The one-allocation clause layout improved this instance by 10%, but
+  per-clause allocation and eager watch detachment during reduction remain.
+- `r3sat_n150_s1` and `color_c80_k4_p011_s1`: 1.61x and 1.27x slower with
   similar conflict counts. These are constant-factor losses.
 - On sub-10 ms instances the process startup and I/O floor dominate, so the
   ratios there are not evidence about the search algorithm.
@@ -400,8 +473,8 @@ missing and where the implementation is weak.
 - The CI runner is shared, so absolute times vary between runs. The README
   table and figures are tied to one recorded run.
 - Memory consumption is not reported. The solver stores all original clauses
-  and keeps a `std::vector` per learned clause, so memory is higher than a
-  region-allocated implementation.
+  and keeps one allocation per learned clause, so memory is higher than a
+  chunked region allocator that reuses deleted clause storage.
 - The fuzz tests compare against exhaustive search on formulas with at most
   12 variables. They exercise the watched-literal and conflict-analysis paths
   heavily, but they are not a proof of correctness for every possible input.

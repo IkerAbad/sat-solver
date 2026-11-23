@@ -6,84 +6,84 @@
 <text x="34.00" y="75.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">satsolver</text>
 <circle cx="111.00" cy="71.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
 <text x="121.00" y="75.00" font-family="sans-serif" font-size="12.0" fill="#222222" font-weight="normal" text-anchor="start">MiniSat</text>
-<line x1="218.56" y1="87.00" x2="218.56" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="218.56" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.001</text>
-<line x1="404.64" y1="87.00" x2="404.64" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="404.64" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.01</text>
-<line x1="590.72" y1="87.00" x2="590.72" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="590.72" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.1</text>
-<line x1="776.79" y1="87.00" x2="776.79" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
-<text x="776.79" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">1</text>
+<line x1="220.98" y1="87.00" x2="220.98" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="220.98" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.001</text>
+<line x1="409.57" y1="87.00" x2="409.57" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="409.57" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.01</text>
+<line x1="598.17" y1="87.00" x2="598.17" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="598.17" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">0.1</text>
+<line x1="786.77" y1="87.00" x2="786.77" y2="477.00" stroke="#e4e4e4" stroke-width="1.00"/>
+<text x="786.77" y="493.00" font-family="sans-serif" font-size="11.0" fill="#666666" font-weight="normal" text-anchor="middle">1</text>
 <text x="560.00" y="512.00" font-family="sans-serif" font-size="12.0" fill="#666666" font-weight="normal" text-anchor="middle">wall time (s)</text>
 <text x="203.00" y="111.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n60_s1</text>
-<line x1="279.41" y1="107.00" x2="299.03" y2="107.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="279.41" cy="107.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="299.03" cy="107.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="111.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.78x</text>
+<line x1="276.17" y1="107.00" x2="298.21" y2="107.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="276.17" cy="107.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="298.21" cy="107.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="111.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.76x</text>
 <text x="203.00" y="138.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n100_s1</text>
-<line x1="328.74" y1="134.00" x2="330.36" y2="134.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="328.74" cy="134.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="330.36" cy="134.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="138.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.98x</text>
+<line x1="321.68" y1="134.00" x2="326.38" y2="134.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="321.68" cy="134.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="326.38" cy="134.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="138.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.94x</text>
 <text x="203.00" y="165.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n150_s1</text>
-<line x1="466.12" y1="161.00" x2="423.42" y2="161.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="466.12" cy="161.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="423.42" cy="161.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="165.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.70x</text>
+<line x1="459.63" y1="161.00" x2="420.58" y2="161.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="459.63" cy="161.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="420.58" cy="161.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="165.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.61x</text>
 <text x="203.00" y="192.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n200_s1</text>
-<line x1="537.15" y1="188.00" x2="383.78" y2="188.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="537.15" cy="188.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="383.78" cy="188.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="192.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">6.67x</text>
+<line x1="529.49" y1="188.00" x2="380.28" y2="188.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="529.49" cy="188.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="380.28" cy="188.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="192.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">6.18x</text>
 <text x="203.00" y="219.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">r3sat_n250_s1</text>
-<line x1="863.30" y1="215.00" x2="872.23" y2="215.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="863.30" cy="215.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="872.23" cy="215.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="219.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.90x</text>
+<line x1="852.06" y1="215.00" x2="871.79" y2="215.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="852.06" cy="215.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="871.79" cy="215.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="219.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.79x</text>
 <text x="203.00" y="246.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_3_2</text>
-<line x1="243.82" y1="242.00" x2="285.33" y2="242.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="243.82" cy="242.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="285.33" cy="242.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="246.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.60x</text>
+<line x1="245.15" y1="242.00" x2="278.06" y2="242.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="245.15" cy="242.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="278.06" cy="242.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="246.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.67x</text>
 <text x="203.00" y="273.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_5_4</text>
-<line x1="262.72" y1="269.00" x2="297.39" y2="269.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="262.72" cy="269.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="297.39" cy="269.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<line x1="251.81" y1="269.00" x2="287.47" y2="269.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="251.81" cy="269.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="287.47" cy="269.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
 <text x="980.00" y="273.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.65x</text>
 <text x="203.00" y="300.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_7_6</text>
-<line x1="507.83" y1="296.00" x2="492.32" y2="296.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="507.83" cy="296.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="492.32" cy="296.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="300.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.21x</text>
+<line x1="498.52" y1="296.00" x2="489.47" y2="296.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="498.52" cy="296.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="489.47" cy="296.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="300.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.12x</text>
 <text x="203.00" y="327.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">php_8_7</text>
-<line x1="707.65" y1="323.00" x2="636.54" y2="323.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="707.65" cy="323.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="636.54" cy="323.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="327.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">2.41x</text>
+<line x1="698.11" y1="323.00" x2="634.56" y2="323.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="698.11" cy="323.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="634.56" cy="323.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="327.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">2.17x</text>
 <text x="203.00" y="354.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c50_k3_p010_s1</text>
-<line x1="261.19" y1="350.00" x2="303.11" y2="350.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="261.19" cy="350.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="303.11" cy="350.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="354.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.60x</text>
+<line x1="264.09" y1="350.00" x2="301.49" y2="350.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="264.09" cy="350.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="301.49" cy="350.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="354.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.63x</text>
 <text x="203.00" y="381.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c100_k3_p0048_s1</text>
-<line x1="316.10" y1="377.00" x2="328.88" y2="377.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="316.10" cy="377.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="328.88" cy="377.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="381.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.85x</text>
+<line x1="309.93" y1="377.00" x2="324.63" y2="377.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="309.93" cy="377.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="324.63" cy="377.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="381.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.84x</text>
 <text x="203.00" y="408.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_c80_k4_p011_s1</text>
-<line x1="412.24" y1="404.00" x2="387.26" y2="404.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="412.24" cy="404.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="387.26" cy="404.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="408.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.36x</text>
+<line x1="404.49" y1="404.00" x2="384.81" y2="404.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="404.49" cy="404.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="384.81" cy="404.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="408.00" font-family="sans-serif" font-size="11.0" fill="#b03030" font-weight="normal" text-anchor="end">1.27x</text>
 <text x="203.00" y="435.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_planted_c30_k3_p03_s1</text>
-<line x1="250.17" y1="431.00" x2="295.31" y2="431.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="250.17" cy="431.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="295.31" cy="431.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<line x1="244.21" y1="431.00" x2="290.57" y2="431.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="244.21" cy="431.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="290.57" cy="431.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
 <text x="980.00" y="435.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.57x</text>
 <text x="203.00" y="462.00" font-family="sans-serif" font-size="11.0" fill="#222222" font-weight="normal" text-anchor="end">color_planted_c40_k4_p03_s1</text>
-<line x1="276.16" y1="458.00" x2="310.74" y2="458.00" stroke="#cfcfcf" stroke-width="2.00"/>
-<circle cx="276.16" cy="458.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
-<circle cx="310.74" cy="458.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
-<text x="980.00" y="462.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.65x</text>
+<line x1="270.62" y1="458.00" x2="303.54" y2="458.00" stroke="#cfcfcf" stroke-width="2.00"/>
+<circle cx="270.62" cy="458.00" r="5.00" fill="#1f77b4" stroke="none" stroke-width="1"/>
+<circle cx="303.54" cy="458.00" r="5.00" fill="#ff7f0e" stroke="none" stroke-width="1"/>
+<text x="980.00" y="462.00" font-family="sans-serif" font-size="11.0" fill="#2a7f3f" font-weight="normal" text-anchor="end">0.67x</text>
 <line x1="215.00" y1="477.00" x2="905.00" y2="477.00" stroke="#777777" stroke-width="1.00"/>
 </svg>

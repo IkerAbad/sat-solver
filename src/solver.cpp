@@ -18,6 +18,7 @@ int checkedNvars(int nvars) {
   return nvars;
 }
 
+// One allocation holds the clause header and its literal array.
 Clause* newClause(size_t size) {
   assert(size > 0);
   void* memory = ::operator new(sizeof(Clause) + size * sizeof(Lit));
