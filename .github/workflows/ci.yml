@@ -86,6 +86,68 @@ jobs:
             docs/figures/
           if-no-files-found: warn
 
+  drat-proofs:
+    name: DRAT proofs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DRAT_TRIM_REV: 2e3b2dc0ecf938addbd779d42877b6ed69d9a985
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build git make python3
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Install drat-trim from source
+        run: |
+          git clone https://github.com/marijnheule/drat-trim.git "$RUNNER_TEMP/drat-trim"
+          git -C "$RUNNER_TEMP/drat-trim" checkout "$DRAT_TRIM_REV"
+          make -C "$RUNNER_TEMP/drat-trim" drat-trim
+
+      - name: Generate benchmark instances
+        run: |
+          python3 scripts/generate_suite.py \
+            --satgen build/satgen \
+            --suite benchmarks/suite.json \
+            --out benchmarks/instances
+
+      - name: Measure proof cost and verify UNSAT proofs
+        run: |
+          python3 scripts/proof_cost.py \
+            --solver build/satsolver \
+            --drat-trim "$RUNNER_TEMP/drat-trim/drat-trim" \
+            --suite benchmarks/suite.json \
+            --instances benchmarks/instances \
+            --proofs results/proofs \
+            --out-csv results/proof_cost.csv \
+            --out-md results/proof_cost.md \
+            --out-json results/proof_cost.json
+
+      - name: Job summary
+        if: always()
+        run: |
+          test -f results/proof_cost.md && cat results/proof_cost.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload proof results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: drat-proof-results
+          path: |
+            results/proof_cost.csv
+            results/proof_cost.md
+            results/proof_cost.json
+          if-no-files-found: warn
+
   sanitizers:
     name: Address and undefined sanitizers
     runs-on: ubuntu-latest

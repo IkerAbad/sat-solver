@@ -244,6 +244,42 @@ void testFuzz() {
   }
 }
 
+void testProof() {
+  std::filesystem::path proof_path =
+      std::filesystem::temp_directory_path() / "satsolver_proof_test.drat";
+  std::filesystem::remove(proof_path);
+
+  sat::GeneratedInstance php = sat::generatePigeonhole(4, 3);
+  {
+    sat::SolverOptions options;
+    options.proof = true;
+    options.proof_path = proof_path.string();
+    sat::Solver solver(php.nvars, options);
+    for (const auto& clause : php.clauses) {
+      solver.addClause(clause);
+    }
+    sat::Status status = solver.solve();
+    expect(status == sat::Status::Unsat, "proof test formula is UNSAT");
+    expect(solver.stats().proof_clauses > 0, "proof test emitted clauses");
+  }
+
+  std::ifstream proof(proof_path);
+  expect(proof.good(), "proof file exists");
+  std::string line;
+  std::string last_nonempty;
+  int lines = 0;
+  while (std::getline(proof, line)) {
+    if (!line.empty()) {
+      last_nonempty = line;
+      ++lines;
+    }
+  }
+  proof.close();
+  expect(lines > 0, "proof file is not empty");
+  expect(last_nonempty == "0", "proof file ends with the empty clause");
+  std::filesystem::remove(proof_path);
+}
+
 void testParser() {
   std::filesystem::path path =
       std::filesystem::temp_directory_path() / "satsolver_parser_test.cnf";
@@ -290,6 +326,7 @@ int main() {
   testBasic();
   testGenerators();
   testFuzz();
+  testProof();
   testParser();
 
   if (failures != 0) {

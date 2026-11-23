@@ -24,6 +24,7 @@ void printUsage(const char* program) {
       << "  --seed=N                       seed for the random heuristic\n"
       << "  --trace=FILE                   write conflict trace CSV\n"
       << "  --trace-stride=N               write every N-th conflict (default: 1)\n"
+      << "  --proof=FILE                   write a DRAT proof (refutation for UNSAT)\n"
       << "  --help                         show this help\n";
 }
 
@@ -103,6 +104,9 @@ int main(int argc, char** argv) {
         options.trace_path = takeValue();
       } else if (key == "--trace-stride") {
         options.trace_stride = parseU64(takeValue(), key);
+      } else if (key == "--proof") {
+        options.proof = true;
+        options.proof_path = takeValue();
       } else {
         throw std::runtime_error("unknown option: " + key);
       }
@@ -152,8 +156,12 @@ int main(int argc, char** argv) {
     sat::Status status = solver.solve();
     const sat::SolverStats& stats = solver.stats();
 
-    std::cout << "c satsolver 1.0.0\n";
+    std::cout << "c satsolver 0.1.0\n";
     std::cout << "c heuristic " << sat::heuristicName(options.heuristic) << '\n';
+    if (options.proof) {
+      std::cout << "c proof " << options.proof_path << '\n';
+      std::cout << "c proof_clauses " << stats.proof_clauses << '\n';
+    }
     std::cout << "c vars " << formula.nvars << '\n';
     std::cout << "c clauses " << formula.clauses.size() << '\n';
     std::cout << "c conflicts " << stats.conflicts << '\n';

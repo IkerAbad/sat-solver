@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <charconv>
 #include <limits>
 #include <stdexcept>
 #include <utility>
@@ -52,9 +53,14 @@ Solver::Solver(int nvars, SolverOptions options)
   if (options_.trace) {
     openTrace();
   }
+  if (options_.proof) {
+    openProof();
+    proof_buffer_.reserve(1 << 20);
+  }
 }
 
 Solver::~Solver() {
+  flushProof();
   for (Clause* clause : originals_) {
     delete clause;
   }
@@ -391,6 +397,10 @@ void Solver::cancelUntil(int level) {
 }
 
 void Solver::addLearnt(std::vector<Lit>& lits, int backtrack_level, uint32_t lbd) {
+  writeProofClause(lits);
+  if (!error_.empty()) {
+    return;
+  }
   cancelUntil(backtrack_level);
 
   if (lits.size() == 1) {
@@ -536,6 +546,54 @@ void Solver::traceRow() {
          << ',' << learnts_.size() << ',' << ms << '\n';
 }
 
+void Solver::openProof() {
+  proof_.open(options_.proof_path, std::ios::out | std::ios::trunc);
+  if (!proof_) {
+    throw std::runtime_error("cannot open DRAT proof file: " + options_.proof_path);
+  }
+}
+
+void Solver::writeProofClause(const std::vector<Lit>& lits) {
+  if (!proof_.is_open()) {
+    return;
+  }
+  for (Lit p : lits) {
+    int value = sign(p) ? -(var(p) + 1) : (var(p) + 1);
+    char buffer[16];
+    auto result = std::to_chars(buffer, buffer + sizeof(buffer), value);
+    proof_buffer_.append(buffer, static_cast<size_t>(result.ptr - buffer));
+    proof_buffer_.push_back(' ');
+  }
+  proof_buffer_ += "0\n";
+  ++stats_.proof_clauses;
+  if (proof_buffer_.size() >= (1u << 20)) {
+    flushProof();
+  }
+}
+
+void Solver::writeProofEmpty() {
+  if (!proof_.is_open()) {
+    return;
+  }
+  proof_buffer_ += "0\n";
+  ++stats_.proof_clauses;
+  flushProof();
+}
+
+void Solver::flushProof() {
+  if (!proof_.is_open()) {
+    return;
+  }
+  if (!proof_buffer_.empty()) {
+    proof_ << proof_buffer_;
+    proof_buffer_.clear();
+  }
+  proof_.flush();
+  if (!proof_) {
+    error_ = "failed to write DRAT proof";
+  }
+}
+
 Status Solver::solve() {
   if (solved_) {
     return final_status_;
@@ -543,6 +601,13 @@ Status Solver::solve() {
 
   solve_start_ = std::chrono::steady_clock::now();
   auto finish = [this](Status status) {
+    if (status == Status::Unsat && error_.empty()) {
+      writeProofEmpty();
+    }
+    flushProof();
+    if (options_.proof && !error_.empty()) {
+      status = Status::Unknown;
+    }
     stats_.seconds =
         std::chrono::duration<double>(std::chrono::steady_clock::now() - solve_start_)
             .count();

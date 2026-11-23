@@ -45,6 +45,8 @@ struct SolverOptions {
   bool trace = false;
   std::string trace_path;
   uint64_t trace_stride = 1;
+  bool proof = false;
+  std::string proof_path;
 };
 
 struct SolverStats {
@@ -55,6 +57,7 @@ struct SolverStats {
   uint64_t learnts = 0;
   uint64_t deleted = 0;
   uint64_t reductions = 0;
+  uint64_t proof_clauses = 0;
   double seconds = 0.0;
 };
 
@@ -99,6 +102,10 @@ private:
   static uint64_t luby(uint64_t index);
   void openTrace();
   void traceRow();
+  void openProof();
+  void writeProofClause(const std::vector<Lit>& lits);
+  void writeProofEmpty();
+  void flushProof();
 
   int nvars_;
   SolverOptions options_;
@@ -133,6 +140,8 @@ private:
   Status final_status_ = Status::Unknown;
 
   std::ofstream trace_;
+  std::ofstream proof_;
+  std::string proof_buffer_;
   std::chrono::steady_clock::time_point solve_start_;
 };
 

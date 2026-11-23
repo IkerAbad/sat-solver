@@ -158,7 +158,7 @@ cmake --build build
 The solver prints DIMACS status and model lines:
 
 ```text
-c satsolver 1.0.0
+c satsolver 0.1.0
 c heuristic vsids
 c conflicts 417
 ...
