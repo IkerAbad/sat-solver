@@ -1,0 +1,138 @@
+{
+  "instances": [
+    {
+      "name": "r3sat_n60_s1",
+      "type": "random3",
+      "vars": 60,
+      "ratio": 4.26,
+      "seed": 1,
+      "reps": 3,
+      "timeout": 20
+    },
+    {
+      "name": "r3sat_n100_s1",
+      "type": "random3",
+      "vars": 100,
+      "ratio": 4.26,
+      "seed": 1,
+      "reps": 3,
+      "timeout": 20,
+      "heuristics": true
+    },
+    {
+      "name": "r3sat_n150_s1",
+      "type": "random3",
+      "vars": 150,
+      "ratio": 4.26,
+      "seed": 1,
+      "reps": 2,
+      "timeout": 20
+    },
+    {
+      "name": "r3sat_n200_s1",
+      "type": "random3",
+      "vars": 200,
+      "ratio": 4.26,
+      "seed": 1,
+      "reps": 2,
+      "timeout": 30,
+      "heuristics": true,
+      "trace": true
+    },
+    {
+      "name": "r3sat_n250_s1",
+      "type": "random3",
+      "vars": 250,
+      "ratio": 4.26,
+      "seed": 1,
+      "reps": 1,
+      "timeout": 60
+    },
+    {
+      "name": "php_3_2",
+      "type": "php",
+      "pigeons": 4,
+      "holes": 3,
+      "reps": 3,
+      "timeout": 20
+    },
+    {
+      "name": "php_5_4",
+      "type": "php",
+      "pigeons": 6,
+      "holes": 5,
+      "reps": 3,
+      "timeout": 20
+    },
+    {
+      "name": "php_7_6",
+      "type": "php",
+      "pigeons": 8,
+      "holes": 7,
+      "reps": 2,
+      "timeout": 20,
+      "heuristics": true
+    },
+    {
+      "name": "php_8_7",
+      "type": "php",
+      "pigeons": 9,
+      "holes": 8,
+      "reps": 1,
+      "timeout": 60
+    },
+    {
+      "name": "color_c50_k3_p010_s1",
+      "type": "coloring",
+      "vertices": 50,
+      "colors": 3,
+      "edge_prob": 0.1,
+      "seed": 1,
+      "reps": 3,
+      "timeout": 20
+    },
+    {
+      "name": "color_c100_k3_p0048_s1",
+      "type": "coloring",
+      "vertices": 100,
+      "colors": 3,
+      "edge_prob": 0.048,
+      "seed": 1,
+      "reps": 2,
+      "timeout": 20
+    },
+    {
+      "name": "color_c80_k4_p011_s1",
+      "type": "coloring",
+      "vertices": 80,
+      "colors": 4,
+      "edge_prob": 0.11,
+      "seed": 1,
+      "reps": 2,
+      "timeout": 20,
+      "heuristics": true
+    },
+    {
+      "name": "color_planted_c30_k3_p03_s1",
+      "type": "coloring",
+      "vertices": 30,
+      "colors": 3,
+      "edge_prob": 0.3,
+      "seed": 1,
+      "planted": true,
+      "reps": 3,
+      "timeout": 20
+    },
+    {
+      "name": "color_planted_c40_k4_p03_s1",
+      "type": "coloring",
+      "vertices": 40,
+      "colors": 4,
+      "edge_prob": 0.3,
+      "seed": 1,
+      "planted": true,
+      "reps": 2,
+      "timeout": 20
+    }
+  ]
+}

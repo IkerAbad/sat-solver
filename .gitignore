@@ -1,0 +1,14 @@
+build/
+out/
+results/
+benchmarks/instances/
+__pycache__/
+*.pyc
+*.trace.csv
+*.exe
+*.obj
+*.o
+*.a
+CMakeUserPresets.json
+.vs/
+.vscode/
